@@ -7,14 +7,14 @@ Adapted for DeepTraffic simulation at http://selfdrivingcars.mit.edu/deeptraffic
 */
 //<![CDATA[
 
-lanesSide = 10;
-patchesAhead = 20;
+lanesSide = 4;
+patchesAhead = 50;
 patchesBehind = 20;
-trainIterations = 10000;
+trainIterations = 50000;
 
 var num_inputs = (lanesSide * 2 + 1) * (patchesAhead + patchesBehind);
 var num_actions = 5;
-var temporal_window = 10;
+var temporal_window = 0;
 var network_size = num_inputs * temporal_window + num_actions * temporal_window + num_inputs;
 
 var layer_defs = [];
@@ -26,7 +26,17 @@ layer_defs.push({
 });
 layer_defs.push({
     type: 'fc',
-    num_neurons: 20,
+    num_neurons: 40,
+    activation: 'relu'
+});
+layer_defs.push({
+    type: 'fc',
+    num_neurons: 50,
+    activation: 'relu'
+});
+layer_defs.push({
+    type: 'fc',
+    num_neurons: 50,
     activation: 'relu'
 });
 layer_defs.push({
@@ -42,15 +52,15 @@ layer_defs.push({
 var tdtrainer_options = {
     learning_rate: 0.001,
     momentum: 0.0,
-    batch_size: 64,
+    batch_size: 128,
     l2_decay: 0.01
 };
 
 var opt = {};
 opt.temporal_window = temporal_window;
-opt.experience_size = 3000;
-opt.start_learn_threshold = 500;
-opt.gamma = 0.7;
+opt.experience_size = 30000;
+opt.start_learn_threshold = 5000;
+opt.gamma = 0.9;
 opt.learning_steps_total = 10000;
 opt.learning_steps_burnin = 1000;
 opt.epsilon_min = 0.0;
