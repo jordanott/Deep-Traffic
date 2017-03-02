@@ -5,6 +5,7 @@ Date: 02/27/2017
 Adapted for DeepTraffic simulation at http://selfdrivingcars.mit.edu/deeptrafficjs/
 
 */
+
 //<![CDATA[
 
 lanesSide = 4;
@@ -81,4 +82,3 @@ learn = function (state, lastReward) {
 }
 
 //]]>
-    
